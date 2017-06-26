@@ -1,6 +1,7 @@
 package com.jimdoesnotgym.ms076.sleep;
 
 import android.app.ActivityManager;
+import android.app.AlarmManager;
 import android.app.Application;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -16,7 +17,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TimePicker;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private PackageManager pm;
     private ActivityManager mActivityManager;
     private NotificationManager mNotificationManager;
-
+    private TimePicker mTimePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +80,21 @@ public class MainActivity extends AppCompatActivity {
                     if(packageInfo.packageName.equals("mypackage")) continue;
                     mActivityManager.killBackgroundProcesses(packageInfo.packageName);
                 }*/
+
+                //alarm
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.YEAR, cal.get(Calendar.YEAR));
+                cal.set(Calendar.MONTH, cal.get(Calendar.MONTH));
+                cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH)),;
+                cal.set(Calendar.HOUR_OF_DAY,6);
+                cal.set(Calendar.MINUTE,0);
+
+                Log.d(TAG, String.valueOf(cal.get(Calendar.YEAR)));
+                Log.d(TAG, String.valueOf(cal.get(Calendar.MONTH)));
+                Log.d(TAG, String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
+
+                AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                //alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis());
             }
         });
     }
