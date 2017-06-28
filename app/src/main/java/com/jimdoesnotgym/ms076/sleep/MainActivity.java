@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.media.AudioManager;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.provider.AlarmClock;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
+    private static final int HOUR_I_WANT = 6;
+    private static final int MINUTE_I_WANT = 0;
 
     private Button mButtonNight;
     private AudioManager mAudioManager;
@@ -82,19 +85,11 @@ public class MainActivity extends AppCompatActivity {
                 }*/
 
                 //alarm
-                Calendar cal = Calendar.getInstance();
-                cal.set(Calendar.YEAR, cal.get(Calendar.YEAR));
-                cal.set(Calendar.MONTH, cal.get(Calendar.MONTH));
-                cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH));
-                cal.set(Calendar.HOUR_OF_DAY,6);
-                cal.set(Calendar.MINUTE,0);
+                Intent i = new Intent(AlarmClock.ACTION_SET_ALARM);
+                i.putExtra(AlarmClock.EXTRA_HOUR, HOUR_I_WANT);
+                i.putExtra(AlarmClock.EXTRA_MINUTES, MINUTE_I_WANT);
+                MainActivity.this.startActivity(i);
 
-                Log.d(TAG, String.valueOf(cal.get(Calendar.YEAR)));
-                Log.d(TAG, String.valueOf(cal.get(Calendar.MONTH)));
-                Log.d(TAG, String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
-
-                AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-                //alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis());
             }
         });
     }
